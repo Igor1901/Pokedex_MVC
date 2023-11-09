@@ -9,9 +9,13 @@ import UIKit
 
 class Service {
     
+    
+    static let shared = Service()
     let BASE_URL = "https://pokedex-bb36f.firebaseio.com/pokemon.json"
     
-    func fetchPokemon(){
+    func fetchPokemon(completion: @escaping ([Pokemon]) -> ()){
+        var pokemonArray = [Pokemon]()
+        
         guard let url = URL(string: BASE_URL) else {return}
         
         URLSession.shared.dataTask(with: url) {(data, response, error) in
@@ -25,7 +29,14 @@ class Service {
             
             do {
                 guard let resulteArray = try JSONSerialization.jsonObject(with: data, options: []) as? [AnyObject] else {return}
-                print(resulteArray)
+                //print(resulteArray)
+                for (key, result) in resulteArray.enumerated(){
+                    if let dictionary = result as? [String: AnyObject]{
+                        let pokemon = Pokemon(id: key, dictionary: dictionary)
+                        pokemonArray.append(pokemon)
+                    }
+                    completion(pokemonArray)
+                }
             } catch let error {
                 print("Failed to fetch json with error: ", error.localizedDescription)
             }

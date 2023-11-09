@@ -11,17 +11,37 @@ private let reuseIdentifier = "PokedexCell"
 
 class PokedexController: UICollectionViewController {
     
+    //MARK: - Proprties
+    
+    var pokemon = [Pokemon]()
+    
+    
+    
+    //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewComponents()
-        
+        fetchPokemon()
     }
     
     //MARK: - Selectors
     @objc func showSearchBar(){
         print(123)
     }
+    
+    //MARK: - API
+    
+    func fetchPokemon(){
+        Service.shared.fetchPokemon { (pokemon) in
+            DispatchQueue.main.async {
+                self.pokemon = pokemon
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: - Helper Functions
     
     func configureViewComponents() {
         collectionView.backgroundColor = .white
@@ -39,7 +59,7 @@ class PokedexController: UICollectionViewController {
 
 extension PokedexController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return pokemon.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PokedexCell
