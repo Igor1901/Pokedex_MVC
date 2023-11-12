@@ -44,10 +44,20 @@ class PokedexController: UICollectionViewController {
     //MARK: - Helper Functions
     
     func configureViewComponents() {
-        collectionView.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = .mainPink()
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.isTranslucent = false
+
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.backgroundColor = .mainPink()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        } else {
+            // Ваш текущий код для более старых версий iOS
+            navigationController?.navigationBar.barTintColor = .mainPink()
+        }
+
         
         navigationItem.title = "Pokedex"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar ))
