@@ -52,7 +52,7 @@ class PokedexController: UICollectionViewController {
             navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
             
             navigationController?.navigationBar.standardAppearance = navBarAppearance
-            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance  // important thing, without it the navigationBar is lost
         } else {
             // Ваш текущий код для более старых версий iOS
             navigationController?.navigationBar.barTintColor = .mainPink()
@@ -62,7 +62,7 @@ class PokedexController: UICollectionViewController {
         navigationItem.title = "Pokedex"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar ))
         navigationItem.rightBarButtonItem?.tintColor = .white 
-        
+        navigationController?.navigationBar.isTranslucent =  false
         collectionView.register(PokedexCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 }

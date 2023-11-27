@@ -20,7 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let layout = UICollectionViewFlowLayout()
-        let navController = UINavigationController(rootViewController: PokedexController(collectionViewLayout: layout))
+        //let navController = UINavigationController(rootViewController: PokedexController(collectionViewLayout: layout))
+        let navController = UINavigationController(rootViewController: PokemonInfoController())
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
