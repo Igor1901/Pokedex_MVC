@@ -74,8 +74,16 @@ extension PokedexController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PokedexCell
         cell.pokemon = pokemon[indexPath.item]
+        //cell.delegate = self
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { // передача данных
+        let controller = PokemonInfoController()
+        controller.pokemon = pokemon[indexPath.row]
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }
 
 extension PokedexController: UICollectionViewDelegateFlowLayout {
@@ -88,5 +96,7 @@ extension PokedexController: UICollectionViewDelegateFlowLayout {
         let width = (view.frame.width - 36) / 3
         return CGSize(width: width, height: width)
     }
+    
+    
     
 }

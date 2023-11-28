@@ -9,8 +9,17 @@ import UIKit
 
 class PokemonInfoController: UIViewController {
     
-    @objc func showSearchBar(){
-        print(123)
+    //@objc func showSearchBar(){
+    //    print(123)
+    //}
+    
+    var pokemon: Pokemon? { // передача данных 
+        didSet {
+            navigationItem.title = pokemon?.name?.capitalized
+            imageView.image = pokemon?.image
+            infoLabel.text = pokemon?.description
+            infoVeiw.pokemon = pokemon
+        }
     }
     
     let imageView: UIImageView = { // pokemon img
@@ -26,7 +35,7 @@ class PokemonInfoController: UIViewController {
         return iv
     }()
     
-    let nameLabel: UILabel = { // description
+    let infoLabel: UILabel = { // description
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14)
@@ -52,7 +61,7 @@ class PokemonInfoController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
         
-        //
+        /*
         if #available(iOS 13.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
@@ -70,16 +79,17 @@ class PokemonInfoController: UIViewController {
         navigationItem.title = "Pokedex"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar ))
         navigationItem.rightBarButtonItem?.tintColor = .white
-        //
+        */
+        
         view.addSubview(imageView)
         imageView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 44, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
         
-        view.addSubview(nameLabel)
-        nameLabel.anchor(top: nil, left: imageView.rightAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 150.0, paddingLeft: 16, paddingBottom: 0, paddingRight: 4, width: 0, height: 0)
-        nameLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        view.addSubview(infoLabel)
+        infoLabel.anchor(top: nil, left: imageView.rightAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 150.0, paddingLeft: 16, paddingBottom: 0, paddingRight: 4, width: 0, height: 0)
+        infoLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
         
         view.addSubview(infoVeiw)
-        infoVeiw.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
+        infoVeiw.anchor(top: infoLabel.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
 
         
     }

@@ -13,6 +13,26 @@ protocol InfoViewDelegate {
 
 class InfoView: UIView {
     
+    
+    var pokemon: Pokemon? {
+        didSet{
+            guard let pokemon = self.pokemon else { return }
+            guard let type = pokemon.type else { return }
+            guard let defense = pokemon.defense else { return }
+            guard let attack = pokemon.attack else { return }
+            guard let id = pokemon.id else { return }
+            guard let height = pokemon.height else { return }
+            guard let weight = pokemon.weight else { return }
+            
+            configureLabel(label: typeLabel, title: "Type", details: type)
+            configureLabel(label: defenseLabel, title: "Defense", details: "\(defense)")
+            configureLabel(label: heightLabel, title: "Height", details: "\(height)")
+            configureLabel(label: weightLabel, title: "Weight", details: "\(weight)")
+            configureLabel(label: pokedexIdLabel, title: "Pokedex Id", details: "\(id)")
+            configureLabel(label: attackLabel, title: "Base Attack", details: "\(attack)")
+        }
+    }
+    
     let typeLabel: UILabel = {
         let label = UILabel()
         return label
@@ -46,21 +66,13 @@ class InfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLabels()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLabels() {
-        configureLabel(label: typeLabel, title: "Type", details: "type")
-        configureLabel(label: defenseLabel, title: "Defense", details: "49")
-        configureLabel(label: heightLabel, title: "Height", details: "7")
-        configureLabel(label: weightLabel, title: "Weight", details: "69")
-        configureLabel(label: pokedexIdLabel, title: "Pokedex Id", details: "3")
-        configureLabel(label: attackLabel, title: "Base Attack", details: "55")
-    }
+
     
     func configureLabel(label: UILabel, title: String, details: String ){
         let attributedText = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title): ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.mainPink()]))
@@ -73,8 +85,8 @@ class InfoView: UIView {
         addSubview(typeLabel)
         typeLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 16, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        addSubview(defenseLabel)
-        defenseLabel.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+        addSubview(pokedexIdLabel) //
+        pokedexIdLabel.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
         
         let separatorView = UIView()
         separatorView.backgroundColor = .systemGroupedBackground
@@ -87,11 +99,11 @@ class InfoView: UIView {
         addSubview(weightLabel)
         weightLabel.anchor(top: heightLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 16, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        addSubview(pokedexIdLabel)
-        pokedexIdLabel.anchor(top: separatorView.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+        addSubview(defenseLabel) //
+        defenseLabel.anchor(top: separatorView.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
         
         addSubview(attackLabel)
-        attackLabel.anchor(top: pokedexIdLabel.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+        attackLabel.anchor(top: defenseLabel.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
     }
     
 }
