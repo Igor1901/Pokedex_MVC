@@ -13,7 +13,7 @@ class PokemonInfoController: UIViewController {
     
     var pokemon: Pokemon? { // передача данных 
         didSet {
-            navigationItem.title = pokemon?.name?.capitalized
+            navigationItem.title = pokemon?.name?.capitalized // с большой буквы
             imageView.image = pokemon?.image
             infoLabel.text = pokemon?.description
             infoVeiw.pokemon = pokemon
@@ -23,13 +23,6 @@ class PokemonInfoController: UIViewController {
     let imageView: UIImageView = { // pokemon img
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        if let image = UIImage(named: "Bulbasaur") {
-            // Установите изображение в UIImageView
-            iv.image = image
-        } else {
-            // Обработка ситуации, если изображение не найдено
-            print("Изображение Bulbasaur не найдено в ассетах.")
-        }
         return iv
     }()
     
@@ -38,7 +31,6 @@ class PokemonInfoController: UIViewController {
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
-        label.text = "Bulbasaur can be seen napping in bright sunlight.\nThere is a seed on its back. By soaking up the sun’s rays,\nthe seed grows progressively larger."
         label.lineBreakMode = .byWordWrapping
         return label
     }()
