@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol PokedexCellDelegate {
+    func presentInfoView(withPokemon pokemon: Pokemon)
+}
+
 class PokedexCell: UICollectionViewCell {
     
     // MARK: - Propertis
+    
+    var delegat: PokedexCellDelegate?
     
     var pokemon: Pokemon? {
         didSet {
@@ -53,6 +59,15 @@ class PokedexCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Selectors
+    
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer){
+        if sender.state == .began {
+            guard let pokemon = self.pokemon else { return }
+            delegat?.presentInfoView(withPokemon: pokemon)
+        }
+    }
+    
     // MARK: - Helpeer Functions
     
     func configureViewComponents(){
@@ -64,5 +79,8 @@ class PokedexCell: UICollectionViewCell {
         
         addSubview(nameContainerView)
         nameContainerView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 32)
+        
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        self.addGestureRecognizer(longPressGestureRecognizer)
     }
 }
