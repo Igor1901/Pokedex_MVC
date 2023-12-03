@@ -15,11 +15,11 @@ class PokedexCell: UICollectionViewCell {
     
     // MARK: - Propertis
     
-    var delegat: PokedexCellDelegate?
+    var delegate: PokedexCellDelegate?
     
     var pokemon: Pokemon? {
         didSet {
-            nameLabel.text = pokemon?.name?.capitalized // с большой буквы
+            nameLabel.text = pokemon?.name?.capitalized 
             imageView.image = pokemon?.image
         }
     }
@@ -36,7 +36,7 @@ class PokedexCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .mainPink()
         view.addSubview(nameLabel)
-        nameLabel.center(inview: view)
+        nameLabel.center(inView: view)
         return view
     }()
     
@@ -44,9 +44,9 @@ class PokedexCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Bulbasaur"
         return label
     }()
+    
     // MARK: - init
     
     override init(frame: CGRect) {
@@ -64,7 +64,7 @@ class PokedexCell: UICollectionViewCell {
     @objc func handleLongPress(sender: UILongPressGestureRecognizer){
         if sender.state == .began {
             guard let pokemon = self.pokemon else { return }
-            delegat?.presentInfoView(withPokemon: pokemon)
+            delegate?.presentInfoView(withPokemon: pokemon)
         }
     }
     

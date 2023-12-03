@@ -17,7 +17,7 @@ extension UIColor {
 }
 
 extension UIView{
-    func center(inview view: UIView){
+    func center(inView view: UIView){
         self.translatesAutoresizingMaskIntoConstraints = false
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

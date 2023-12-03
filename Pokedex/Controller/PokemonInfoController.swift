@@ -13,7 +13,7 @@ class PokemonInfoController: UIViewController {
     
     var pokemon: Pokemon? { // передача данных 
         didSet {
-            navigationItem.title = pokemon?.name?.capitalized // с большой буквы
+            navigationItem.title = pokemon?.name?.capitalized
             imageView.image = pokemon?.image
             infoLabel.text = pokemon?.description
             infoVeiw.pokemon = pokemon
@@ -49,7 +49,7 @@ class PokemonInfoController: UIViewController {
         
     func configureViewComponents() {
         view.backgroundColor = .white
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .white
         
         view.addSubview(imageView)
         imageView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 44, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
