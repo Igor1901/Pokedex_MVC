@@ -21,7 +21,7 @@ class InfoView: UIView {
             guard let type = pokemon.type else { return }
             guard let defense = pokemon.defense else { return }
             guard let attack = pokemon.attack else { return }
-            guard let id = pokemon.id else { return }
+            guard let id = pokemon.id else { return } 
             guard let height = pokemon.height else { return }
             guard let weight = pokemon.weight else { return }
             

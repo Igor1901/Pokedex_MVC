@@ -58,17 +58,6 @@ class PokedexController: UICollectionViewController {
         }
     }
     
-    //MARK: - Helper Function
-    
-    func dismissInfoView(pokemon: Pokemon?) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.visualEffectView.alpha = 0
-            self.infoView.alpha = 0
-            self.infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        }) { (_) in
-            self.infoView.removeFromSuperview()
-        }
-    }
     
     //MARK: - Helper Functions
     
@@ -89,6 +78,21 @@ class PokedexController: UICollectionViewController {
         navigationItem.rightBarButtonItem?.tintColor = .white
     }
     
+    //MARK: - Helper Function
+    
+    func dismissInfoView(pokemon: Pokemon?) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.visualEffectView.alpha = 0
+            self.infoView.alpha = 0
+            self.infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }) { (_) in
+            self.infoView.removeFromSuperview()
+            guard let pokemon = pokemon else { return }
+            let controller = PokemonInfoController()
+            controller.pokemon = pokemon
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
     
     func configureViewComponents() {
 
@@ -163,6 +167,7 @@ extension PokedexController {
         let controller = PokemonInfoController()
         controller.pokemon = inSearchMode ? filteredPokemon[indexPath.row] : pokemon[indexPath.row]
         navigationController?.pushViewController(controller, animated: true)
+        
     }
     
 }
