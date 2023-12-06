@@ -177,10 +177,21 @@ extension PokedexController {
     }
     //MARK: - переход на 2 экран
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { // передача данных
-
         let poke = inSearchMode ? filteredPokemon[indexPath.row] : pokemon[indexPath.row]
-        showPokemonInfoController(withPokemon: poke)
         
+        var pokemonEvoArray = [Pokemon]()
+        
+        if let evoChain = poke.evolutionChain {
+            let evolutionChain = EvolutionChain(evolutionArray: evoChain)
+            let evoIds = evolutionChain.evolutionIds
+            
+            evoIds.forEach { (id) in
+                pokemonEvoArray.append(pokemon[id - 1])
+            }
+            poke.evoArray = pokemonEvoArray
+        }
+        
+        showPokemonInfoController(withPokemon: poke)
     }
     
 }
